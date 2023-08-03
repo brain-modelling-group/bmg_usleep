@@ -70,7 +70,7 @@ edf_func_v2.m
 eeg_lr.m
 
 
-Optinal, but recommended are:
+Optional, but recommended are:
 
 tsvstd.m
 
