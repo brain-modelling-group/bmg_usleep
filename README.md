@@ -6,6 +6,7 @@ NOTE: In this document, when the phrase "python script" is used, it will be in r
 
 
 ################################################################################
+
 SETTING UP PYTHON
 
 In order to run the u-sleep api and have it automatically recieve EDF file inputs from a given dataset that is formatted to the .mat format, one must first operate VSCode through a proxy in order to bypass the QIMR firewall for this given operation.
@@ -41,7 +42,9 @@ Next step is to organize and input and output directory for the script to input 
 It is advised that one creates a parent folder that contains daughter folders that contains the out files.
 
 e.g. 
+
 C:\User\U-Sleep-Predictions\    <---- would be the parent directory which contains the daughter directories.
+
 C:\User\U-Sleep-Predictions\U-Sleep_ver_2    <---- would be the daughter directory that takes in the .tsv files.
 
 This was one can have a folder that contains all of their outputs organized however the user wishes.
@@ -50,7 +53,9 @@ Once these directories have been set up, next is to replace the values of the va
 
 
 
-#########################################################################################################################################################################################SETTING UP MATLAB
+################################################################################################
+
+SETTING UP MATLAB
 
 The MATLAB script is mostly simpler than the python script. However, it is much, much more sensitive to the input/output directories as it is capable and willing to delete files in those directories, so DO NOT STORE ANYTHING IN THESE DIRECTORIES. 
 
