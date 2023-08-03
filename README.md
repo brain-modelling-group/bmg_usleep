@@ -60,14 +60,22 @@ SETTING UP MATLAB
 The MATLAB script is mostly simpler than the python script. However, it is much, much more sensitive to the input/output directories as it is capable and willing to delete files in those directories, so DO NOT STORE ANYTHING IN THESE DIRECTORIES. 
 
 First step is to ensure the script and all its subfunctions are on path and able to be executed. This includes the following scripts/functions.
+
 Event_func_1.m
+
 MPscript_Usleepv2.m
+
 edf_func_v2.m
+
 eeg_lr.m
 
+
 Optinal, but recommended are:
+
 tsvstd.m
+
 usleepComparer.m
+
 
 These last two allow for the easy loading and reading of .tsv files (usleep output files) and comparissons between the usleep predictions and ground-truth results. 
 
