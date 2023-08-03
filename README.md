@@ -5,12 +5,14 @@ NOTE: In this document, when the phrase "python script" is used, it will be in r
 
 
 
-#########################################################################################################################################################################################SETTING UP PYTHON
+################################################################################
+SETTING UP PYTHON
 
 In order to run the u-sleep api and have it automatically recieve EDF file inputs from a given dataset that is formatted to the .mat format, one must first operate VSCode through a proxy in order to bypass the QIMR firewall for this given operation.
 This is started by openning CMD (windows command line) and writing and executing the following code:
 
 set http_proxy=http://user:password@webproxy.adqimr.ad.lan:8080
+
 set https_proxy=http://user:password@webproxy.adqimr.ad.lan:8080
 
 Then run vscode through the command lines, an example of how to do this can be seen below:
