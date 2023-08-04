@@ -3,36 +3,41 @@
 import os 
 import os.path
 import time
-import mne
 from usleep_api import USleepAPI
 import logging
 import pdb
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("api_example")
 
-#CODE EXPLANAION:
-#For this script to run, you must alter the inputdir and outputdir variables, these are strings that are the path of the input directory and the output directory respectively.
-#More or less everything else will work automatically so long as you are connected to the QIMR storage drives (L-drive). 
-#Finally, the below variable 'token' which will have an assigned value of some hideously long sequence of characters, is the online-acquired U-Sleep API token, it is needed to utilize U-sleep
-#from within a python script such as this. You will need a U-sleep account that has the ability to generate these tokens which can be created and authenticated here: https://sleep.ai.ku.dk/home
-#From this URL, make an account and then make a request to have the ability to generate an API token, this might require emailling the creators of U-Sleep, whose details can be found
-#in the 'Contact' section of the above website, found at the bottom of the page, next to the Privacy Policy and Terms of Service.
+#You can install the api via pip with the following command:  pip install usleep-api
+#Same goes for Logging:   pip install logging
 
-#When the above is correctly you should be able to press the 'Run Code' button and have it run correctly, if errors present, they usually require a case-by-case solution. In general, here are 
-#some of the most common:
+#::::CODE EXPLANAION::::
+#For this script to run, you must alter the inputdir and outputdir variables, these are strings that are the path of the input directory and
+#the output directory respectively. More or less everything else will work automatically so long as you are connected to the QIMR storage drives (L-drive). 
+#Finally, the below variable 'token' which will have an assigned value of some hideously long sequence of characters, is the online-acquired U-Sleep
+#API token, it is needed to utilize U-sleep from within a python script such as this. You will need a U-sleep account that has the ability to generate
+#these tokens which can be created and authenticated here: https://sleep.ai.ku.dk/home From this URL, make an account and then make a request to have
+#the ability to generate an API token, this might require emailling the creators of U-Sleep, whose details can be found in the 'Contact' section of
+#the above website, found at the bottom of the page, next to the Privacy Policy and Terms of Service.
+
+#When the above is correctly you should be able to press the 'Run Code' button and have it run correctly, if errors present, they usually require
+#a case-by-case solution. In general, here are some of the most common:
 
 # - Outdated or unauthentic API token  --- solution is to request and use a new API token.
 # - Invalid Channel/Channel Groups     --- solutions vary, though usually this is a result of a frequency that isn't 128 Hz, so resample to 128. Can also occur when manually inputting channel groups, let the API figure that out automatically.
 # - No such file or directory          --- this can occur when the script tries to process a file twice and the MATLAB script deletes the EDF file before it can finish. Can also occur from a plain ol' typo in the input/outputdir varaibles.
 
-#Other than these, many of the problems that can occur will unfortunately have to be solved manually by the user, as although most of this is fairly bullet proof, there are a lot
-#of weird, moving parts to this script that can go wrong. If no errors present, it is recommended to have the MATLAB script running first and THEN this python script, though ther shouldn't
-#be any major issues with running this first, it's just you may encounter the 3rd aforementioned common error.
+#Other than these, many of the problems that can occur will unfortunately have to be solved manually by the user, as although most of this is fairly
+#bullet proof, there are a lot of weird, moving parts to this script that can go wrong. If no errors present, it is recommended to have the MATLAB 
+#script running first and THEN this python script, though ther shouldn't be any major issues with running this first, it's just you may encounter 
+#the 3rd aforementioned common error.
 
-#NOTE: every 12 hours the API token expires, thus, it is imperative that if the user is to have this script run for longer than 12 hours, that they check back on the code after around
-#said 12 hours, as the script will throw an error and stop running. Fortunately, if this happens, one must only generate a new token and copy paste it into the code as before, then hit run
-#and the code should continue along fine. It should not go out of sync, it only checks for valid EDF files in the input directory and then processes them and spits out the resulting
-# .tsv files into the output directory. As the MATLAB script will not proceed until it finds said .tsv file, they should remain in sync. 
+#NOTE: every 12 hours the API token expires, thus, it is imperative that if the user is to have this script run for longer than 12 hours, that they
+#check back on the code after around said 12 hours, as the script will throw an error and stop running. Fortunately, if this happens, one must only
+#generate a new token and copy paste it into the code as before, then hit run and the code should continue along fine. It should not go out of sync, it
+#only checks for valid EDF files in the input directory and then processes them and spits out the resulting .tsv files into the output directory. 
+#As the MATLAB script will not proceed until it finds said .tsv file, they should remain in sync. 
 
 
 
@@ -51,7 +56,7 @@ listnames = sorted(listnames)
 
 
 # Create an API object with API token stored in environment variable 
-token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTEwNjUwNjMsImlhdCI6MTY5MTAyMTg2MywibmJmIjoxNjkxMDIxODYzLCJpZGVudGl0eSI6IjFiNGQ2ZGI0ZTYyZCJ9.1fjG4mpODe_cHyjELgrhijl_zgtqRCB3yEoAcEQ9a-o'
+token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTExNTA2NTAsImlhdCI6MTY5MTEwNzQ1MCwibmJmIjoxNjkxMTA3NDUwLCJpZGVudGl0eSI6IjFiNGQ2ZGI0ZTYyZCJ9.ELMEZ9ok04P9gghNG4k2UVFtwsh8gzyQ_Yu1X7sdsQA'
 
 #pdb.set_trace()
 
@@ -68,7 +73,7 @@ inputdir = "C:/Data&Scripts/Tempbin/"
 
 # ::::OUTPUT DIRECTORY::::
 # Below is the output file directory, i.e. the folder that will recieve the .tsv files (the hypnograms) this produces.
-outputdir = "C:/Data&Scripts/U-Sleep_Hypnograms/v2new/"
+outputdir = "L:/Lab_JamesR/alexW/U-Sleep_Hypnograms/v2new/"
 #
 # ::::END USER INPUT SECTION::::
 
@@ -120,6 +125,8 @@ while len(tsvlist) < 3800:
                     counter += 1    
 
                     sessionv2.delete_session()
+
+                    print("\n\nAwating EDF for input\n\n")
                     time.sleep(1)
 
                 else:
