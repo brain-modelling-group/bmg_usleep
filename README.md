@@ -121,7 +121,32 @@ The impetus for ommitting the non 30 second events is due to the way the -events
 
 edf_func_v2.m
 
-This (admittedly hideous) function takes in the name of the subject (e.g. DXA_45) as a char or string as the first argument, and the psgdata as the second argument. This then takes the data, finds the 'C4' and 'LOC' channel in the psg data and then cuts the data into the part that is present during the sleep-state analysis (as found in the -events.mat file). After this, it resamples it to 128 hz (which is wanted by U-sleep v2) and then takes all this data, constructs a header for an EDF+C file and outputs a EDF file
+This (admittedly hideous) function takes in the name of the subject (e.g. DXA_45) as a char or string as the first argument, and the psgdata as the second argument. This then takes the data, finds the 'C4' and 'LOC' channel in the psg data and then cuts the data into the part that is present during the sleep-state analysis (as found in the -events.mat file). After this, it resamples it to 128 hz (which is wanted by U-sleep v2) and then takes all this data, constructs a header for an EDF+C file and outputs a .edf file with the said data and header. This is used by the MATLAB script to produce .edf's for use by the python script.
+
+
+Event_func_1.m
+
+This horrible thing is a function that take in the path of the given subject, loads it's event file and the produces a hell of a lot of outputs. This includes the sleep chart, how much time it spent in any given sleep state, the timestart/timeend/totallength values, etc. This is used to construct scnew.m for use in pretty much every function involved. 
+
+
+
+eeg_lr.m
+
+A function which will hopefully see no use. This removes the flat line artefacts in eeg (any signal as a matter of fact) in a way to approximate when the device is actually in use for eeg and not just picking up noise/calibrating.
+
+
+
+tsvstd.m
+
+This function takes in the path of a .tsv file and outputs, into the matlab workspace, a vector that is the hypnogram of the .tsv file. In short, it translates the .tsv files U-sleep outputs into very readible, very amicible vectors that can be easily compared to other hynograms. 
+
+
+
+UsleepComparer.m
+
+This script, when altered to your .tsv reservoir directory, will iterate over every .tsv it finds and compares it to the ground truth sleep study as found in scnew.m. It outputs rough estimates for the agreement of the two. Also, it adds zeros to the vectors of either the u-sleep vector or the real sleep vector to match their lengths for 1-to-1 comparissons. Much work was done to see if there was a way to elegantly normalize vector length. There is no way. 
+
+This also outputs a 3-d matrix where the first two dimensiosn are the states, with the vertical columns corresponding to the real state, and the horizontal rows corresponding to the predicted state. This allows for the creation of confusion charts as well as an analysis as to which state the prediction algorithm might be getting caught up on. 
 
 
 
