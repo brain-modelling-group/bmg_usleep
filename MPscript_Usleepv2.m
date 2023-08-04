@@ -20,20 +20,20 @@ names = fields(scnew);
 % prog = false;
 %quick predict count = 2905;
 %813
-count = 1;
+count = 285;
 %BELOW DEFINES INPUT/OUTPUT DIRECTORIES
-%It is recommended that 'tsvloc' and 'edfloc' are both empty folders before
-%you start this. Also, 'edfloc' MUST be empty before hand else the script
-%will through and error saying it doesn't know what postbool is.
-tsvloc = 'C:\Data&Scripts\U-Sleep_Hypnograms\v2new'; %location where final output tsv files are to be output
+%It is recommended that 'tsvloc', also, 'edfloc' MUST be empty beforehand
+%else the script will throw an error saying it doesn't know what postbool is.
+tsvloc = 'L:\Lab_JamesR\alexW\U-Sleep_Hypnograms\v2new'; %location where final output tsv files are to be output
 dataloc = 'L:\Lab_JamesR\Paediatric_Sleep\diagnostic\'; %location where the .mat psgdata files are located
 edfloc = 'C:\Data&Scripts\Tempbin\'; %location where edf files are TEMPORARYILY located for processing, will be deleted after.
 while length(dir(tsvloc)) < length(fields(scnew))
     if length(dir('C:\Data&Scripts\Tempbin')) < 3
         count = count + 1;
-        disp(['Loading and converting ' names{count} ' to EDF format']);
+        disp(['Loading and converting ' names{count} ' to EDF format   ---  ' str2num(count)]);
         load([dataloc names{1} '\' names{1} '-psgdata.mat']);
         edf_func_v2([edfloc names{count} '.edf'], psgdata);
+        disp('Succesfully created edf');
         pause(1)
         postbool = false;
     else

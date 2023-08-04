@@ -1,6 +1,10 @@
 %%edf writer for DXA Data set
 %function takes in psg and data as well as the patient name
 %(e.g DXA_45) and outputs a edf data file of said data.
+%This also takes the portion of the eeg data estimated to be aligned with
+%the sleep staging data "Analysis-Start" and "Analysis-End" lines, as to
+%coordinate data. After this, it then resamples the data to 128 hertz as
+%that is the sample rate U-sleep desires for its functions.
 
 function edfoutput = edf_func_v2(pathsub, psg)
     
